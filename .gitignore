@@ -6,3 +6,6 @@ dist/
 .DS_Store
 .vscode/
 *.log
+trash/
+routeTree.gen.ts
+coverage/
