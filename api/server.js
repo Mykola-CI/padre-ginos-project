@@ -5,11 +5,16 @@ import { fileURLToPath } from "url";
 import { AsyncDatabase } from "promised-sqlite3";
 
 const server = fastify({
-  logger: {
-    transport: {
-      target: "pino-pretty",
-    },
-  },
+  logger: process.env.NODE_ENV === 'production'
+    ? true  // Use default JSON logger in production
+    : {
+        transport: {
+          target: "pino-pretty",
+          options: {
+            colorize: true,
+          },
+        },
+      }
 });
 
 const PORT = process.env.PORT || 3000;
