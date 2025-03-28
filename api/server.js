@@ -18,6 +18,7 @@ const server = fastify({
 });
 
 const PORT = process.env.PORT || 3000;
+process.env.NODE_ENV = 'production';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -310,7 +311,7 @@ server.post("/api/contact", async function contactForm(req, res) {
 
 const start = async () => {
   try {
-    await server.listen({ port: PORT });
+    await server.listen({ port: PORT, host: '0.0.0.0' });
     console.log(`Server listening on port ${PORT}`);
   } catch (err) {
     console.error(err);
