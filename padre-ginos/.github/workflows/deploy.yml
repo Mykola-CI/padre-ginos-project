@@ -1,0 +1,33 @@
+name: Deploy Frontend
+
+on:
+  push:
+    branches:
+      - main # Trigger deployment when changes are pushed to the main branch
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout the repository
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Step 2: Set up Node.js
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22.x'
+# Use Node.js version compatible with your frontend
+
+      # Step 3: Install dependencies and build
+      - name: Install dependencies and build
+        run: |
+          cd padre-ginos
+          npm install
+          npm run build
+        env:
+          VITE_API_URL: ${{ secrets.VITE_API_URL }} # Use the environment variable set in GitHub Secrets
+
+      # Step 4: Deploy to Render (optional if Render auto-deploys from GitHub)
