@@ -1,6 +1,7 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import { TanStackRouterVite } from "@tanstack/router-plugin/vite";
+import path from "path";
 
 export default defineConfig({
   server: {
@@ -18,6 +19,9 @@ export default defineConfig({
     outDir: "dist", // Specify the output directory for the build (default is "dist")
     sourcemap: true, // Optional: Generate source maps for debugging
     rollupOptions: {
+      input: {
+        main: path.resolve(__dirname, 'public/index.html')
+      },
       // Optional: Customize Rollup bundling
       output: {
         manualChunks: undefined, // Example: Customize chunk splitting

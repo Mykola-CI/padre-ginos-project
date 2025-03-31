@@ -7,36 +7,33 @@ on:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+    environment: padre gino production  # Explicit environment
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Required for proper path resolution
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '22.x'
+          cache: 'npm'
 
-      - name: Install & Build
-        run: |
-          cd padre-ginos
-          npm ci
-          npm run build
+      - name: Install dependencies
+        working-directory: ./padre-ginos
+        run: npm ci
+
+      - name: Build project
+        working-directory: ./padre-ginos
+        run: npm run build
         env:
           VITE_API_URL: ${{ secrets.VITE_API_URL }}
 
-      - name: Create gh-pages branch (if missing)
-        run: |
-          git checkout --orphan gh-pages
-          git reset --hard
-          echo "Initial commit" > index.html
-          git add index.html
-          git commit -m "Initialize gh-pages"
-          git push origin gh-pages --force
-
-      - name: Deploy to GitHub Pages
+      - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./padre-ginos/dist
-          force_orphan: true  # Ensures clean deployment
+          force_orphan: true
