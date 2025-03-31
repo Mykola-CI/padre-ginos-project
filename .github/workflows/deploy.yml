@@ -2,32 +2,31 @@ name: Deploy Frontend
 
 on:
   push:
-    branches:
-      - main # Trigger deployment when changes are pushed to the main branch
+    branches: [main]
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
-      # Step 1: Checkout the repository
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
-      # Step 2: Set up Node.js
-      - name: Use Node.js
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '22.x'
-# Use Node.js version compatible with your frontend
 
-      # Step 3: Install dependencies and build
-      - name: Install dependencies and build
+      - name: Install & Build
         run: |
           cd padre-ginos
-          npm install
+          npm ci
           npm run build
         env:
-          VITE_API_URL: ${{ secrets.VITE_API_URL }} # Use the environment variable set in GitHub Secrets
+          VITE_API_URL: ${{ secrets.VITE_API_URL }}
 
-      # Step 4: Deploy to Render (optional if Render auto-deploys from GitHub)
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./padre-ginos/dist
