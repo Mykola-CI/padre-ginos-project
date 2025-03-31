@@ -26,9 +26,10 @@ export default defineConfig({
         alias: {
           '@': path.resolve(__dirname, 'src')
         },
-      // Optional: Customize Rollup bundling
-      output: {
-        manualChunks: undefined, // Example: Customize chunk splitting
+        // Optional: Customize Rollup bundling
+        output: {
+          manualChunks: undefined, // Example: Customize chunk splitting
+        },
       },
     },
   },
