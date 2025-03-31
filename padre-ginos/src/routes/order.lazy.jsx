@@ -5,6 +5,8 @@ import Cart from "../Cart";
 import { CartContext } from "../contexts";
 import { formatCurrency } from "../utils/formatCurrency";
 
+const apiUrl = import.meta.env.VITE_API_URL;
+
 export const Route = createLazyFileRoute("/order")({
   component: Order,
 });
@@ -31,7 +33,7 @@ function Order() {
   // `,[]` a parameter that shows React when to run useEffect, empty array is provided to accomplish only-run-on-creation effect
 
   async function fetchPizzaTypes() {
-    const pizzasRes = await fetch("/api/pizzas");
+    const pizzasRes = await fetch(`${apiUrl}/api/pizzas`);
     const pizzasJson = await pizzasRes.json();
     setPizzaTypes(pizzasJson);
     setLoading(false);

@@ -12,10 +12,6 @@ export default defineConfig({
         target: process.env.VITE_API_URL || "http://localhost:3000", // Use environment variable or fallback to localhost
         changeOrigin: true,
       },
-      "/public": {
-        target: process.env.VITE_API_URL || "http://localhost:3000", // Use environment variable or fallback to localhost
-        changeOrigin: true,
-      },
     },
   },
   plugins: [TanStackRouterVite(), react()],

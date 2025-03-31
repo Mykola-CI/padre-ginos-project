@@ -2,6 +2,8 @@ import { useState, useContext } from "react";
 import { formatCurrency } from "./utils/formatCurrency";
 import { CartContext } from "./contexts";
 
+const apiUrl = import.meta.env.VITE_API_URL;
+
 export default function Cart() {
   const [cart, setCart] = useContext(CartContext);
   const [loading, setLoading] = useState(false);
@@ -15,7 +17,7 @@ export default function Cart() {
   async function checkout() {
     setLoading(true);
 
-    await fetch("/api/order", {
+    await fetch(`${apiUrl}/api/order`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
