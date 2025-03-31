@@ -50,7 +50,7 @@ nav {
   height: 110px;
   background-position: left;
   background-repeat: no-repeat;
-  content: url("../api/public/padre_gino.svg");
+  content: url("./public/padre_gino.svg");
   /* border-bottom: 1px solid #ccc; */
   padding-bottom: 20px;
   padding-top: 20px;
@@ -98,7 +98,7 @@ nav > a {
 
 @font-face {
   font-family: Pacifico;
-  src: url("../api/public/Pacifico-Regular.ttf");
+  src: url("./public/Pacifico-Regular.ttf");
 }
 
 h2 {
