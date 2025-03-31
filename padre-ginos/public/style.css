@@ -17,6 +17,10 @@ body {
   background-color: var(--background);
 }
 
+#root h1 {
+  padding: min(5%, 30px);
+}
+
 ul,
 ol {
   list-style: none;
@@ -46,8 +50,8 @@ nav {
   height: 110px;
   background-position: left;
   background-repeat: no-repeat;
-  content: url("/public/padre_gino.svg");
-  border-bottom: 1px solid #ccc;
+  content: url("./padre_gino.svg");
+  /* border-bottom: 1px solid #ccc; */
   padding-bottom: 20px;
   padding-top: 20px;
 }
@@ -72,6 +76,11 @@ nav > a {
   font-size: 40px;
 }
 
+.nav-cart-total {
+  font-size: 25px;
+  color: var(--secondary);
+}
+
 .nav-cart-number {
   background-color: var(--secondary);
   color: white;
@@ -89,7 +98,7 @@ nav > a {
 
 @font-face {
   font-family: Pacifico;
-  src: url("/public/Pacifico-Regular.ttf");
+  src: url("./Pacifico-Regular.ttf");
 }
 
 h2 {
@@ -120,7 +129,7 @@ h2::after {
 
 .order {
   width: 100%;
-  margin-left: 5%;
+  padding: min(5%, 30px);
 }
 
 form div {
@@ -224,6 +233,15 @@ button,
 button:disabled {
   opacity: 0.5;
   background-color: #ccc;
+}
+
+.cartRemoveButton {
+  border: none;
+  width: 32px;
+  height: 32px;
+  font-size: 10px;
+  font-family: Arial, sans-serif;
+  font-weight: bold;
 }
 
 .order-pizza {
@@ -407,6 +425,7 @@ tbody tr:last-of-type {
   border-radius: 30px;
   background: var(--background);
 }
+
 td img {
   width: 50px;
 }
@@ -421,6 +440,18 @@ td img {
   text-decoration: underline;
 }
 
+/* HTML: <div class="loader"></div> */
+.loader {
+  width: 50px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 8px solid lightblue;
+  border-right-color: orange;
+  animation: l2 1s infinite linear;
+  margin: auto;
+}
+@keyframes l2 {to{transform: rotate(1turn)}}
+
 .contact form {
   display: flex;
   flex-direction: column;
@@ -428,8 +459,7 @@ td img {
   justify-items: center;
 }
 
-.contact input,
-.contact textarea {
+.contact input {
   width: 500px;
   padding: 8px;
   border: 2px solid var(--border);
@@ -440,6 +470,18 @@ td img {
 
 .contact textarea {
   min-height: 200px;
+  width: 500px;
+  padding: 8px;
+  border: 2px solid var(--border);
+  border-radius: 5px;
+  margin-bottom: 5px;
+  margin-top: 15px;
+}
+
+.contact textarea + p {
+  font-size: 12px;
+  color: var(--secondary);
+  margin-bottom: 15px;
 }
 
 .contact input:focus,
