@@ -27,7 +27,16 @@ const frontendDistPath = path.join(__dirname, "../padre-ginos/dist");
 server.register(fastifyStatic, {
   root: frontendDistPath,
   prefix: "/",
-  decorateReply: false
+  decorateReply: false,
+  serve: false  // Disable automatic serving
+});
+
+server.get('*', async (req, reply) => {
+  try {
+    await reply.sendFile('index.html', frontendDistPath);
+  } catch (err) {
+    reply.code(404).send({ error: 'Not found' });
+  }
 });
 
 // Fallback route for SPA routing

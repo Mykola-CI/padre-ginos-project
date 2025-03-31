@@ -7,6 +7,10 @@ on:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write   # Critical for deployment
+      pages: write
+      id-token: write
     environment: padre gino production  # Explicit environment
 
     steps:
@@ -38,3 +42,4 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./padre-ginos/dist
           force_orphan: true
+          keep_files: false

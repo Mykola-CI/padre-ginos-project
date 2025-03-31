@@ -33,5 +33,6 @@ export default defineConfig({
       },
     },
   },
+  publicDir: 'public',  // Explicit public directory
   plugins: [TanStackRouterVite(), react()],
 });
