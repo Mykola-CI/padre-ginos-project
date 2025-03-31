@@ -17,10 +17,10 @@ const PORT = process.env.PORT || 3000;
 const HOST = process.env.HOST || "0.0.0.0";
 
 // Enable CORS to allow requests from the frontend
-await server.register(cors, {
-  origin: process.env.FRONTEND_URL || "https://mykola-ci.github.io/padre-ginos-react",
-  methods: ["GET", "POST", "OPTIONS"],
-});
+// await server.register(cors, {
+//   origin: process.env.FRONTEND_URL || "https://mykola-ci.github.io/padre-ginos-react",
+//   methods: ["GET", "POST", "OPTIONS"],
+// });
 
 // SQLite database connection
 const db = await AsyncDatabase.open("./pizza.sqlite");
