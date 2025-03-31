@@ -16,11 +16,15 @@ const server = fastify({
 const PORT = process.env.PORT || 3000;
 const HOST = process.env.HOST || "0.0.0.0";
 
-// Enable CORS to allow requests from the frontend
-// await server.register(cors, {
-//   origin: process.env.FRONTEND_URL || "https://mykola-ci.github.io/padre-ginos-react",
-//   methods: ["GET", "POST", "OPTIONS"],
-// });
+// Register the CORS plugin
+await server.register(cors, {
+  origin: [
+    "https://mykola-ci.github.io", // Allow requests from your frontend domain
+  ],
+  methods: ["GET", "POST", "OPTIONS"], // Allow specific HTTP methods
+  allowedHeaders: ["Content-Type", "Authorization"], // Allow specific headers
+  credentials: true, // If you need cookies or authentication headers
+});
 
 // SQLite database connection
 const db = await AsyncDatabase.open("./pizza.sqlite");
