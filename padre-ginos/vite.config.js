@@ -20,8 +20,12 @@ export default defineConfig({
     sourcemap: true, // Optional: Generate source maps for debugging
     rollupOptions: {
       input: {
-        main: path.resolve(__dirname, 'public/index.html')
+        main: path.resolve(__dirname, 'index.html')
       },
+      resolve: {
+        alias: {
+          '@': path.resolve(__dirname, 'src')
+        },
       // Optional: Customize Rollup bundling
       output: {
         manualChunks: undefined, // Example: Customize chunk splitting

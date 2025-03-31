@@ -21,8 +21,11 @@ const HOST = ("RENDER" in process.env) ? `0.0.0.0` : `localhost`;
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+// Path to frontend build output
+const frontendDistPath = path.join(__dirname, "../padre-ginos/dist");
+
 server.register(fastifyStatic, {
-  root: path.join(__dirname,  '../padre-ginos/public'),
+  root: frontendDistPath,
   prefix: "/",
   decorateReply: false
 });
@@ -30,7 +33,7 @@ server.register(fastifyStatic, {
 // Fallback route for SPA routing
 server.setNotFoundHandler((req, reply) => {
   if (req.headers.accept?.includes('text/html')) {
-    reply.sendFile('index.html');
+    reply.sendFile('index.html', frontendDistPath);
   } else {
     reply.code(404).send({ error: 'Route not found' });
   }
