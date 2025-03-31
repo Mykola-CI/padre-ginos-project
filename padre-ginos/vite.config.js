@@ -14,5 +14,15 @@ export default defineConfig({
       },
     },
   },
+  build: {
+    outDir: "dist", // Specify the output directory for the build (default is "dist")
+    sourcemap: true, // Optional: Generate source maps for debugging
+    rollupOptions: {
+      // Optional: Customize Rollup bundling
+      output: {
+        manualChunks: undefined, // Example: Customize chunk splitting
+      },
+    },
+  },
   plugins: [TanStackRouterVite(), react()],
 });
