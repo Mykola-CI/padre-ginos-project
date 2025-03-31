@@ -1,5 +1,5 @@
 import fastify from "fastify";
-// import fastifyStatic from "@fastify/static";
+import fastifyStatic from "@fastify/static";
 import path from "path";
 import { fileURLToPath } from "url";
 import { AsyncDatabase } from "promised-sqlite3";
@@ -21,6 +21,21 @@ const HOST = ("RENDER" in process.env) ? `0.0.0.0` : `localhost`;
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+server.register(fastifyStatic, {
+  root: path.join(__dirname,  '../padre-ginos/public'),
+  prefix: "/",
+  decorateReply: false
+});
+
+// Fallback route for SPA routing
+server.setNotFoundHandler((req, reply) => {
+  if (req.headers.accept?.includes('text/html')) {
+    reply.sendFile('index.html');
+  } else {
+    reply.code(404).send({ error: 'Route not found' });
+  }
+});
+
 const db = await AsyncDatabase.open("./pizza.sqlite");
 
 server.addHook('preHandler', (req, res, done) => {
@@ -34,11 +49,6 @@ server.addHook('preHandler', (req, res, done) => {
   }
   done();
 })
-
-// server.register(fastifyStatic, {
-//   root: path.join(__dirname, "public"),
-//   prefix: "/public/",
-// });
 
 server.get("/api/pizzas", async function getPizzas(req, res) {
   const pizzasPromise = db.all(
@@ -64,8 +74,6 @@ server.get("/api/pizzas", async function getPizzas(req, res) {
       }
       return acc;
     }, {});
-
-    // server.log.info({ sizes }, `Sizes for ${pizza.name}`);
 
     return {
       id: pizza.pizza_type_id,
@@ -328,5 +336,13 @@ const start = async () => {
     process.exit(1);
   }
 };
+
+server.setErrorHandler((error, req, reply) => {
+  req.log.error(error);
+  reply.status(500).send({ 
+    error: "Internal server error",
+    requestId: req.id 
+  });
+});
 
 start();
