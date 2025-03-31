@@ -4,6 +4,7 @@ import path from 'path';
 import { TanStackRouterVite } from '@tanstack/router-plugin/vite';
 
 export default defineConfig({
+  base: '/padre-ginos-react/', // Set this to your repository name
   plugins: [
     react(),
     TanStackRouterVite({
