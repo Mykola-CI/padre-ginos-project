@@ -20,6 +20,7 @@ jobs:
         with:
           node-version: '22.x'
           cache: 'npm'
+          cache-dependency-path: 'padre-ginos/package-lock.json'  # Critical fix
 
       - name: Install dependencies
         working-directory: ./padre-ginos
