@@ -1,38 +1,27 @@
-import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react";
-import { TanStackRouterVite } from "@tanstack/router-plugin/vite";
-import path from "path";
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+import path from 'path';
 
 export default defineConfig({
+  plugins: [react()],
   server: {
-    fs: {
-      allow: [".."],
-    },
+    port: 10000, // Frontend development server runs on port 10000
     proxy: {
-      "/api": {
-        target: process.env.VITE_API_URL || "http://localhost:3000", // Use environment variable or fallback to localhost
+      '/api': {
+        target: process.env.VITE_API_URL || 'http://localhost:3000', // Backend API proxy
         changeOrigin: true,
+        secure: false,
       },
     },
   },
   build: {
-    outDir: "dist", // Specify the output directory for the build (default is "dist")
-    sourcemap: true, // Optional: Generate source maps for debugging
-    rollupOptions: {
-      input: {
-        main: path.resolve(__dirname, 'index.html')
-      },
-      resolve: {
-        alias: {
-          '@': path.resolve(__dirname, 'src')
-        },
-        // Optional: Customize Rollup bundling
-        output: {
-          manualChunks: undefined, // Example: Customize chunk splitting
-        },
-      },
+    outDir: 'dist',
+    emptyOutDir: true,
+    sourcemap: false,
+  },
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, './src'),
     },
   },
-  publicDir: 'public',  // Explicit public directory
-  plugins: [TanStackRouterVite(), react()],
 });

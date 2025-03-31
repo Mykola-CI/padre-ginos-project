@@ -16,51 +16,27 @@ const server = fastify({
 });
 
 const PORT = process.env.PORT || 3000;
-const HOST = ("RENDER" in process.env) ? `0.0.0.0` : `localhost`;
+const HOST = process.env.HOST || "0.0.0.0";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-// Path to frontend build output
-const frontendDistPath = path.join(__dirname, "../padre-ginos/dist");
-
-server.register(fastifyStatic, {
-  root: frontendDistPath,
-  prefix: "/",
-  decorateReply: false,
-  serve: false  // Disable automatic serving
+// Enable CORS to allow requests from the frontend
+await server.register(cors, {
+  origin: process.env.FRONTEND_URL || "https://mykola-ci.github.io/padre-ginos-react",
+  methods: ["GET", "POST", "OPTIONS"],
 });
 
-server.get('*', async (req, reply) => {
-  try {
-    await reply.sendFile('index.html', frontendDistPath);
-  } catch (err) {
-    reply.code(404).send({ error: 'Not found' });
-  }
-});
-
-// Fallback route for SPA routing
-server.setNotFoundHandler((req, reply) => {
-  if (req.headers.accept?.includes('text/html')) {
-    reply.sendFile('index.html', frontendDistPath);
-  } else {
-    reply.code(404).send({ error: 'Route not found' });
-  }
-});
-
+// SQLite database connection
 const db = await AsyncDatabase.open("./pizza.sqlite");
 
-server.addHook('preHandler', (req, res, done) => {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Methods", "GET, POST");
-  res.header("Access-Control-Allow-Headers", "*");
+// Health check endpoint
+server.get("/health", async (req, reply) => {
+  reply.send({ status: "healthy" });
+});
 
-  const isPreflight = /options/i.test(req.method);
-  if (isPreflight) {
-    return res.send();
-  }
-  done();
-})
+// Error handler
+server.setErrorHandler((error, req, reply) => {
+  req.log.error(error);
+  reply.status(500).send({ error: "Internal server error" });
+});
 
 server.get("/api/pizzas", async function getPizzas(req, res) {
   const pizzasPromise = db.all(
@@ -342,19 +318,11 @@ server.post("/api/contact", async function contactForm(req, res) {
 const start = async () => {
   try {
     await server.listen({ port: PORT, host: HOST });
-    console.log(`Server listening on port ${PORT}`);
+    console.log(`Server running at http://${HOST}:${PORT}`);
   } catch (err) {
     console.error(err);
     process.exit(1);
   }
 };
-
-server.setErrorHandler((error, req, reply) => {
-  req.log.error(error);
-  reply.status(500).send({ 
-    error: "Internal server error",
-    requestId: req.id 
-  });
-});
 
 start();
