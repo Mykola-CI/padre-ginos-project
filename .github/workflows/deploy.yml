@@ -31,8 +31,8 @@ jobs:
           cache: 'npm'
           cache-dependency-path: './padre-ginos/package-lock.json' # Explicit path to lock file
         env:
-        NODE_ENV: production
-        VITE_BASE: '/padre-ginos-react/'
+          NODE_ENV: production
+          VITE_BASE: '/padre-ginos-react/'
 
 
       # Step 4: Install dependencies
