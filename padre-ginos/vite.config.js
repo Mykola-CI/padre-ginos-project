@@ -15,14 +15,14 @@ export default defineConfig({
     }),
   ],
   server: {
-    port: 10000, // Frontend development server runs on port 10000
-    proxy: {
+    port: 10000,
+    proxy: process.env.NODE_ENV === 'development' ? {
       '/api': {
-        target: process.env.VITE_API_URL || 'http://localhost:3000', // Backend API proxy
+        target: process.env.VITE_API_URL || 'http://localhost:3000',
         changeOrigin: true,
         secure: false,
       },
-    },
+    } : undefined,
   },
   build: {
     outDir: 'dist',
