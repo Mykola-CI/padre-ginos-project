@@ -28,6 +28,7 @@ export default defineConfig({
     outDir: 'dist',
     emptyOutDir: true,
     sourcemap: false,
+    cssCodeSplit: false,
   },
   resolve: {
     alias: {
