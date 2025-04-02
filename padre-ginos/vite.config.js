@@ -18,8 +18,11 @@ export default defineConfig({
   publicDir: 'public',
   build: {
     outDir: 'dist',
-    emptyOutDir: true,
-    assetsDir: 'assets'
+    assetsDir: 'assets',
+    rollupOptions: {
+      output: {
+        assetFileNames: 'assets/[name]-[hash][extname]'
+      }
   },
   resolve: {
     alias: {
