@@ -9,10 +9,6 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
 
-    env:
-      NODE_ENV: production # Ensure production mode
-      VITE_BASE: '/padre-ginos-react/' # Explicitly set the base path for Vite
-
     steps:
       # Step 1: Checkout repository
       - name: Checkout Repository

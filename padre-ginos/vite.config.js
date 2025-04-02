@@ -14,7 +14,7 @@ export default defineConfig({
     }),
     react()
   ],
-  base: '/padre-ginos-react/',
+  base: '/padre-ginos-project/',
   publicDir: 'public',
   build: {
     outDir: 'dist',
