@@ -35,8 +35,9 @@ jobs:
         run: npm run build
         env:
           VITE_API_URL: ${{ secrets.VITE_API_URL }}
+          NODE_ENV: production
       
-      - name: Create .nojekyll file
+      - name: Create .nojekyll
         run: echo > ./padre-ginos/dist/.nojekyll
 
 
