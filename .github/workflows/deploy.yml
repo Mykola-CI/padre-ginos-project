@@ -27,8 +27,13 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '22.x' # Use a stable Node.js version (adjust if needed)
+          node-version: 22.x
           cache: 'npm'
+          cache-dependency-path: './padre-ginos/package-lock.json' # Explicit path to lock file
+        env:
+        NODE_ENV: production
+        VITE_BASE: '/padre-ginos-react/'
+
 
       # Step 4: Install dependencies
       - name: Install Dependencies
