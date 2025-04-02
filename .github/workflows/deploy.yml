@@ -30,7 +30,7 @@ jobs:
           node-version: 22.x
           cache: 'npm'
           cache-dependency-path: './padre-ginos/package-lock.json' # Explicit path to lock file
-        working-directory: ./padre-ginos  
+          working-directory: ./padre-ginos  
 
 
       # Step 4: Install dependencies
