@@ -23,10 +23,11 @@ export default defineConfig({
       output: {
         assetFileNames: 'assets/[name]-[hash][extname]'
       }
-  },
-  resolve: {
-    alias: {
-      '@': path.resolve(__dirname, './src')
+    },
+    resolve: {
+      alias: {
+        '@': path.resolve(__dirname, './src')
+      }
     }
   }
 })
