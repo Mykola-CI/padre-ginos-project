@@ -50,7 +50,7 @@ nav {
   height: 110px;
   background-position: left;
   background-repeat: no-repeat;
-  content: url("/padre-ginos-react/Pacifico-Regular.ttf");
+  content: url("/padre-ginos-react/padre_gino.svg");
   /* border-bottom: 1px solid #ccc; */
   padding-bottom: 20px;
   padding-top: 20px;
@@ -98,7 +98,7 @@ nav > a {
 
 @font-face {
   font-family: Pacifico;
-  src: url("./Pacifico-Regular.ttf");
+  src: url("/padre-ginos-react/Pacifico-Regular.ttf");
 }
 
 h2 {
@@ -116,12 +116,10 @@ h2::after {
   margin-left: 25px;
   width: 150px;
   height: 30px;
-  background: conic-gradient(
-    transparent 90deg,
-    var(--primary) 90deg 180deg,
-    transparent 180deg 270deg,
-    var(--primary) 270deg
-  );
+  background: conic-gradient(transparent 90deg,
+      var(--primary) 90deg 180deg,
+      transparent 180deg 270deg,
+      var(--primary) 270deg);
   background-repeat: repeat;
   background-size: 30px 30px;
   background-position: top left;
@@ -450,7 +448,12 @@ td img {
   animation: l2 1s infinite linear;
   margin: auto;
 }
-@keyframes l2 {to{transform: rotate(1turn)}}
+
+@keyframes l2 {
+  to {
+    transform: rotate(1turn)
+  }
+}
 
 .contact form {
   display: flex;
