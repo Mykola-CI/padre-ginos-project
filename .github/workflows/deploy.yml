@@ -6,8 +6,12 @@ on:
       - main
 
 jobs:
-  deploy:
+  build-and-deploy:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write   # Required for pushing changes
+      pages: write       # Required for deploying to GitHub Pages
+      id-token: write    # Needed for future-proofing (OIDC tokens)
 
     steps:
       # Step 1: Checkout repository
