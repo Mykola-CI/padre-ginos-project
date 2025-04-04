@@ -5,7 +5,7 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import PizzaOfTheDay from "../PizzaOfTheDay";
 import Header from "../Header";
 import { CartContext } from "../contexts";
-import { Route as IndexRoute } from "./index.lazy"; 
+import { Route as IndexLazyRoute } from "./index.lazy"; 
 
 export const Route = createRootRoute({
   path: "/*", // Allow nested routes
@@ -25,5 +25,13 @@ export const Route = createRootRoute({
       </>
     );
   },
-  children: [IndexRoute],
 });
+
+// Explicitly create index route with parent relationship
+const IndexRoute = createRoute({
+  getParentRoute: () => Route, // Direct parent reference
+  path: "/",
+}).lazy(() => IndexLazyRoute);
+
+// Add to root children
+Route.addChildren([IndexRoute]);
