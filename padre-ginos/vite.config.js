@@ -5,6 +5,16 @@ import path from 'path'
 import { TanStackRouterVite } from '@tanstack/router-plugin/vite';
 
 export default defineConfig({
+  base: '/padre-ginos-project/', // Base path for the app
+  server: {
+    proxy: {
+      '/api': {
+        target: process.env.VITE_API_URL || 'http://localhost:3000',
+        changeOrigin: true,
+        secure: false
+      }
+    }
+  },
   plugins: [
     TanStackRouterVite({
       target: 'react',
@@ -14,7 +24,6 @@ export default defineConfig({
     }),
     react()
   ],
-  base: '/padre-ginos-project/',
   publicDir: 'public',
   build: {
     outDir: 'dist',
