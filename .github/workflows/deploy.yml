@@ -6,13 +6,16 @@ on:
       - main
   workflow_dispatch:
 
+permissions:
+  contents: write   # Required for pushing changes
+  pages: write       # Required for deploying to GitHub Pages
+  id-token: write    # Needed for future-proofing (OIDC tokens)
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write   # Required for pushing changes
-      pages: write       # Required for deploying to GitHub Pages
-      id-token: write    # Needed for future-proofing (OIDC tokens)
+    environment: github-pages  # Reference the correct environment name
+
 
     steps:
       # Step 1: Checkout repository
