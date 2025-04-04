@@ -8,6 +8,7 @@ import { CartContext } from "../contexts";
 import { Route as IndexRoute } from "./index.lazy"; 
 
 export const Route = createRootRoute({
+  path: "/*", // Allow nested routes
   component: () => {
     const cartHook = useState([]);
     return (
