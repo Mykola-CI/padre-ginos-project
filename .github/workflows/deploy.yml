@@ -49,6 +49,6 @@ jobs:
         with:
           path: ./padre-ginos/dist
 
-      # Step 7: Deploy to GitHub Pages
+      # Step 7 (Updated): Deploy to GitHub Pages using official action
       - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v4
+        uses: actions/deploy-pages@v4
