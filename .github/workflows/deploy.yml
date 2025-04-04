@@ -19,12 +19,7 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
-      # Step 2: Clean workspace
-      - name: Clean Workspace
-        run: |
-          rm -rf padre-ginos/dist padre-ginos/node_modules
-
-      # Step 3: Set up Node.js
+      # Step 2: Set up Node.js
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
@@ -32,25 +27,28 @@ jobs:
           cache: 'npm'
           cache-dependency-path: padre-ginos/package-lock.json # Use relative path here
 
-      # Step 4: Install dependencies
+      # Step 3: Install dependencies
       - name: Install Dependencies
         working-directory: ./padre-ginos
         run: npm ci --include=dev 
 
-      # Step 5: Build project
+      # Step 4: Build project
       - name: Build Project
         working-directory: ./padre-ginos
         env:
           VITE_API_URL: ${{ secrets.VITE_API_URL }}
         run: npm run build
 
-      # Step 6: Create .nojekyll file (to prevent GitHub Pages from ignoring files)
+      # Step 5: Create .nojekyll file (to prevent GitHub Pages from ignoring files)
       - name: Create .nojekyll File
         run: echo > ./padre-ginos/dist/.nojekyll
+
+      # Step 6: Upload artifact for deployment
+      - name: Upload Pages Artifact
+        uses: actions/upload-pages-artifact@v1
+        with:
+          path: ./padre-ginos/dist
 
       # Step 7: Deploy to GitHub Pages
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./padre-ginos/dist
