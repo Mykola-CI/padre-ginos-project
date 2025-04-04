@@ -3,14 +3,12 @@ import cors from "@fastify/cors";
 import { AsyncDatabase } from "promised-sqlite3";
 
 const server = fastify({
-  logger: {
+  logger: process.env.NODE_ENV === 'development' ? {
     transport: {
       target: "pino-pretty",
-      options: {
-        colorize: true,
-      },
-    },
-  }
+      options: { colorize: true }
+    }
+  } : true // Use default JSON logger in production
 });
 
 const PORT = process.env.PORT || 3000;
