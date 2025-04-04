@@ -14,16 +14,19 @@ const server = fastify({
 });
 
 const PORT = process.env.PORT || 3000;
-const HOST = process.env.HOST || "0.0.0.0";
+const HOST = process.env.NODE_ENV === 'production' ? '0.0.0.0' : 'localhost';
 
 // Register the CORS plugin
 await server.register(cors, {
-  origin: [
-    "https://mykola-ci.github.io", // Allow requests from your frontend domain
-  ],
-  methods: ["GET", "POST", "OPTIONS"], // Allow specific HTTP methods
-  allowedHeaders: ["Content-Type", "Authorization"], // Allow specific headers
-  credentials: true, // If you need cookies or authentication headers
+  origin: process.env.NODE_ENV === 'development' 
+    ? ["http://localhost:5173"] // Vite default port
+    : [
+      "https://mykola-ci.github.io",
+      "https://padre-ginos.onrender.com" // Your Render URL
+    ],
+  methods: ["GET", "POST", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+  credentials: true
 });
 
 // SQLite database connection
