@@ -32,6 +32,12 @@ jobs:
         working-directory: ./padre-ginos
         run: npm ci --include=dev 
 
+      # Debug Step: Verify Environment Variable
+      - name: Debug Environment Variable
+        env:
+          VITE_API_URL: ${{ secrets.VITE_API_URL }}
+        run: echo "VITE_API_URL=$VITE_API_URL"
+
       # Step 4: Build project
       - name: Build Project
         working-directory: ./padre-ginos
