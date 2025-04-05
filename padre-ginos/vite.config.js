@@ -3,9 +3,13 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import path from 'path'
 import { TanStackRouterVite } from '@tanstack/router-plugin/vite';
+import dotenv from 'dotenv';
+
+// Load environment variables from .env
+dotenv.config();
 
 export default defineConfig({
-  base: '/padre-ginos-project/', // Base path for the app
+  base: '/padre-ginos-project/', // Default to '/padre-ginos-project/' if no env variable is set
   server: {
     proxy: {
       '/api': {

@@ -4,7 +4,7 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "dev": "node --watch server.js"
+    "dev": "node -r dotenv/config --watch server.js"
   },
   "keywords": [],
   "author": "",
@@ -19,6 +19,7 @@
     "promised-sqlite3": "^2.1.0"
   },
   "devDependencies": {
+    "dotenv": "^16.4.7",
     "pino-pretty": "11.2.2"
   },
   "overrides": {

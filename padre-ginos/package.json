@@ -22,6 +22,7 @@
     "@tanstack/router-devtools": "^1.114.22",
     "@tanstack/router-plugin": "^1.114.30",
     "@vitejs/plugin-react": "^4.3.4",
+    "dotenv": "^16.4.7",
     "eslint": "^9.21.0",
     "eslint-config-prettier": "^10.0.2",
     "eslint-plugin-react": "^7.37.4",

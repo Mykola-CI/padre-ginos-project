@@ -11,13 +11,18 @@ const server = fastify({
   } : true // Use default JSON logger in production
 });
 
+if (process.env.NODE_ENV === 'development') {
+  import('dotenv').then(dotenv => dotenv.config());
+}
+
 const PORT = process.env.PORT || 3000;
 const HOST = process.env.NODE_ENV === 'production' ? '0.0.0.0' : 'localhost';
+console.log(`Server running in ${process.env.NODE_ENV} mode`);
 
 // Register the CORS plugin
 await server.register(cors, {
   origin: process.env.NODE_ENV === 'development' 
-    ? ["http://localhost:5173"] // Vite default port
+    ? "http://localhost:5173" // Vite default port
     : [
       "https://mykola-ci.github.io",
       "https://padre-ginos.onrender.com" // Your Render URL
