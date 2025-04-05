@@ -10,7 +10,14 @@ const PizzaOfTheDay = () => {
   const pizzaOfTheDay = usePizzaOfTheDay();
 
   if (!pizzaOfTheDay) {
-    return <div>Loading...</div>;
+    return (
+      <>
+        <div className="past-orders">
+          <h2>LOADING …</h2>
+        </div>
+        <div className="loader"></div>
+      </>
+    );
   }
 
   return (
